@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SOVEREIGN GATE</title>
+    <style>
+        /* === MAIN STYLES === */
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #000;
+            color: #c0a062;
+            margin: 0;
+            padding: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23222" d="M50 0c-2 0-4 1-5 2l-20 30c-1 1-2 3-2 5v30c0 2 1 4 2 5l20 30c1 1 3 2 5 2s4-1 5-2l20-30c1-1 2-3 2-5v-30c0-2-1-4-2-5l-20-30c-1-1-3-2-5-2z"/></svg>');
+            background-size: 50px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 1px solid #c0a062;
+            box-shadow: 0 0 30px rgba(192, 160, 98, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* === HEADER === */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #c0a062;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(192, 160, 98, 0.5);
+        }
+        
+        .eye-symbol {
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23c0a062" d="M50 30c-20 0-37 12-45 20 8 8 25 20 45 20s37-12 45-20c-8-8-25-20-45-20zm0 35c-10 0-18-8-18-18s8-18 18-18 18 8 18 18-8 18-18 18zm0-25c-4 0-7 3-7 7s3 7 7 7 7-3 7-7-3-7-7-7z"/></svg>');
+            background-size: contain;
+            animation: pulse 5s infinite, rotate 30s linear infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.7; transform: scale(0.95); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* === MAIN CONTENT === */
+        .membership-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .option {
+            padding: 20px;
+            border: 1px solid #c0a062;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 1px solid transparent;
+            background: linear-gradient(45deg, #c0a062, #000, #c0a062) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .option:hover {
+            background-color: rgba(192, 160, 98, 0.1);
+        }
+        
+        .option:hover::before {
+            opacity: 1;
+        }
+        
+        .option h3 {
+            margin-top: 0;
+            color: #e0c080;
+            font-size: 1.3em;
+        }
+        
+        .price {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #f0d090;
+            margin: 10px 0;
+        }
+        
+        .price-tiers {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+        }
+        
+        .price-tier {
+            padding: 8px 12px;
+            border: 1px solid #c0a062;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .price-tier:hover {
+            background-color: rgba(192, 160, 98, 0.2);
+        }
+        
+        .price-tier.selected {
+            background-color: #c0a062;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        /* === BUTTONS === */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #c0a062;
+            color: #000;
+            text-align: center;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1em;
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover {
+            background-color: #e0c080;
+            box-shadow: 0 0 15px rgba(192, 160, 98, 0.7);
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9em;
+        }
+        
+        /* === FORMS === */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            color: #c0a062;
+            border: 1px solid #333;
+            font-family: inherit;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #c0a062;
+            box-shadow: 0 0 10px rgba(192, 160, 98, 0.3);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #c0a062;
+        }
+        
+        /* === REASONS TO JOIN === */
+        .reasons-to-join {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #c0a062;
+        }
+        
+        .reasons-to-join textarea {
+            min-height: 100px;
+        }
+        
+        /* === VERIFICATION === */
+        .verification-box {
+            border: 2px solid #600;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .verification-box::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid rgba(192, 160, 98, 0.3);
+            pointer-events: none;
+        }
+        
+        .verification-box h3 {
+            margin-top: 0;
+            color: #e08080;
+            text-align: center;
+        }
+        
+        .photo-upload-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .photo-upload-box {
+            width: 150px;
+            height: 150px;
+            background: #111;
+            border: 3px solid #600;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c0a062;
+        }
+        
+        .photo-upload-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .video-upload-box {
+            width: 320px;
+            height: 240px;
+            background: #111;
+            border: 3px solid #600;
+            margin: 10px auto;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c0a062;
+        }
+        
+        .video-upload-box video {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .face-match-result {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .match-success {
+            background-color: rgba(0, 100, 0, 0.3);
+            border: 1px solid #0a0;
+            color: #0f0;
+        }
+        
+        .match-failure {
+            background-color: rgba(100, 0, 0, 0.3);
+            border: 1px solid #a00;
+            color: #f00;
+        }
+        
+        .fingerprint-scanner {
+            width: 200px;
+            height: 200px;
+            background: #111;
+            margin: 20px auto;
+            border: 3px solid #c0a062;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .fingerprint-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 10px,
+                rgba(192, 160, 98, 0.3) 10px,
+                rgba(192, 160, 98, 0.3) 12px
+            );
+            animation: scan 2s infinite linear;
+            display: none;
+        }
+        
+        .fingerprint-success {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: #0f0;
+            display: none;
+        }
+        
+        .fingerprint-progress {
+            width: 80%;
+            height: 10px;
+            background: #111;
+            margin: 10px auto;
+            border: 1px solid #333;
+        }
+        
+        .fingerprint-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #600, #c0a062);
+            transition: width 0.5s;
+        }
+        
+        .fingerprint-details {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #999;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        .verification-steps {
+            margin: 20px 0;
+        }
+        
+        .step {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .step::before {
+            content: "?";
+            position: absolute;
+            left: 0;
+            color: #c0a062;
+        }
+        
+        .step.completed {
+            color: #c0a062;
+        }
+        
+        /* === HIDDEN SECTIONS === */
+        .hidden-section {
+            display: none;
+            animation: fadeIn 1s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* === FOOTER === */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.8em;
+            color: #666;
+        }
+        
+        .disclaimer {
+            font-size: 0.7em;
+            color: #666;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+        
+        /* === SPECIAL EFFECTS === */
+        .floating-symbols {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .floating-symbols div {
+            position: absolute;
+            font-size: 24px;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+        
+        /* === CERTIFICATE === */
+        #certificate {
+            background-color: #f5e7c1;
+            color: #000;
+            padding: 40px;
+            border: 15px double #600;
+            font-family: 'Old English Text MT', serif;
+            text-align: center;
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        #certificate::before, #certificate::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23600" d="M50 0c27 0 50 23 50 50s-23 50-50 50-50-23-50-50 23-50 50-50zm0 10c-22 0-40 18-40 40s18 40 40 40 40-18 40-40-18-40-40-40zm0 10c16 0 30 14 30 30s-14 30-30 30-30-14-30-30 14-30 30-30z"/></svg>');
+            background-size: contain;
+            opacity: 0.2;
+        }
+        
+        #certificate::before {
+            top: 20px;
+            left: 20px;
+        }
+        
+        #certificate::after {
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        #certificate h1 {
+            font-size: 36px;
+            color: #600;
+            margin-bottom: 30px;
+            text-shadow: none;
+        }
+        
+        #certificate h2 {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        
+        #certificate h3 {
+            font-size: 28px;
+            text-decoration: underline;
+            margin: 30px 0;
+        }
+        
+        .seal {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23600" d="M50 0c27 0 50 23 50 50s-23 50-50 50-50-23-50-50 23-50 50-50zm0 10c-22 0-40 18-40 40s18 40 40 40 40-18 40-40-18-40-40-40zm0 10c16 0 30 14 30 30s-14 30-30 30-30-14-30-30 14-30 30-30z"/></svg>');
+            background-size: contain;
+        }
+        
+        /* === MENTOR DASHBOARD === */
+        #mentor-dashboard {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border: 1px solid #c0a062;
+            margin-top: 30px;
+        }
+        
+        .mentor-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .mentor-stats p {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-left: 3px solid #c0a062;
+        }
+        
+        #recruit-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #recruit-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #600;
+        }
+        
+        /* === COUNCIL MESSAGE === */
+        .council-message {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border: 1px solid #c0a062;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .council-message::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c0a062, transparent);
+        }
+        
+        .council-message::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c0a062, transparent);
+        }
+        
+        /* === SECRET WIKI === */
+        #secret-wiki {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border: 1px solid #600;
+            margin-top: 30px;
+        }
+        
+        .wiki-section {
+            margin-bottom: 30px;
+        }
+        
+        .wiki-section h3 {
+            color: #e08080;
+            border-bottom: 1px solid #600;
+            padding-bottom: 5px;
+        }
+        
+        /* === LEGAL === */
+        .legal-notice {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            background: #000;
+            padding: 5px;
+            font-size: 6px;
+            opacity: 0.1;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Symbols Background -->
+    <div class="floating-symbols">
+        <div style="top:10%; left:5%;">?</div>
+        <div style="top:20%; left:80%;">?</div>
+        <div style="top:50%; left:15%;">?</div>
+        <div style="top:70%; left:90%;">?</div>
+        <div style="top:30%; left:60%;">?</div>
+        <div style="top:80%; left:30%;">?</div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>THE SOVEREIGN GATE</h1>
+            <div class="eye-symbol"></div>
+            <p>Established 1776</p>
+        </header>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen">
+            <h2>WELCOME, SEEKER</h2>
+            <p>The path to enlightenment requires commitment. Begin your journey by completing the initiation process.</p>
+            
+            <div style="margin: 40px 0;">
+                <button class="btn" onclick="showSection('main-content')">BEGIN INITIATION</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div id="main-content" class="hidden-section">
+            <h2>MEMBERSHIP TIERS</h2>
+            <p>Select your path to enlightenment:</p>
+            
+            <div class="membership-options">
+                <div class="option" onclick="selectMembership('illuminati')">
+                    <h3>The Illuminati Order</h3>
+                    <div class="price">$418</div>
+                    <ul>
+                        <li>Global influence networks</li>
+                        <li>Wealth accumulation secrets</li>
+                        <li>Pyramid resource allocation</li>
+                        <li>VIP council access and wealthy</li>
+                    </ul>
+                </div>
+                
+                <div class="option" onclick="selectMembership('brotherhood')">
+                    <h3>The Brotherhood</h3>
+                    <div class="price">$250</div>
+                    <ul>
+                        <li>Elite networking</li>
+                        <li>Secret communication</li>
+                        <li>Protection services and wealthy</li>
+                        <li>Underground knowledge</li>
+                    </ul>
+                </div>
+                
+                <div class="option" onclick="selectMembership('freemason')">
+                    <h3>Freemason Elite</h3>
+                    <div class="price">$167</div>
+                    <ul>
+                        <li>Ancient rituals</li>
+                        <li>33rd degree initiation and wealthy</li>
+                        <li>Sacred geometry</li>
+                        <li>Architectural secrets</li>
+                    </ul>
+                </div>
+                
+                <div class="option" onclick="selectMembership('shankiki')">
+                    <h3>The Shankiki Circle</h3>
+                    <div class="price-tiers">
+                        <div class="price-tier" onclick="selectShankikiTier(69, event)">$69</div>
+                        <div class="price-tier" onclick="selectShankikiTier(41, event)">$41</div>
+                        <div class="price-tier" onclick="selectShankikiTier(27, event)">$27</div>
+                        <div class="price-tier" onclick="selectShankikiTier(18, event)">$18</div>
+                    </div>
+                    <ul>
+                        <li>Esoteric knowledge</li>
+                        <li>Energy manipulation</li>
+                        <li>Spiritual awakening</li>
+                        <li>Ancient wisdom</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="btn" onclick="showSection('application-form')">BEGIN REGISTRATION</button>
+            </div>
+        </div>
+
+        <!-- Application Form -->
+        <div id="application-form" class="hidden-section">
+            <h2>INITIATION PROTOCOL</h2>
+            <p>Complete all verification steps for council review.</p>
+            
+            <form id="main-form">
+                <div class="form-group">
+                    <label>Full Legal Name:</label>
+                    <input type="text" id="full-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address:</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Age:</label>
+                    <input type="number" id="age" min="18" max="120" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Sex:</label>
+                    <select id="sex" required>
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Country:</label>
+                    <select id="country" required>
+                        <option value="">Select Country</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="US">United States</option>
+                        <option value="UG">Uganda</option>
+                        <option value="KE">Kenya</option>
+                        <option value="NG">Nigeria</option>
+                        <option value="TZ">Tanzania</option>
+                        <option value="FR">France</option>
+                        <option value="GH">Ghana</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone Number (with country code):</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Occupation/Work/Job:</label>
+                    <input type="text" id="occupation" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Current Location (District, Country):</label>
+                    <input type="text" id="location" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Mentor's ID Number (required):</label>
+                    <input type="text" id="mentor-id" placeholder="e.g. INIT-123-QA" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Create Secure Access Password:</label>
+                    <div class="password-container">
+                        <input type="password" id="password" required>
+                        <span class="toggle-password" onclick="togglePasswordVisibility()">???</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirm Password:</label>
+                    <div class="password-container">
+                        <input type="password" id="confirm-password" required>
+                        <span class="toggle-password" onclick="toggleConfirmPasswordVisibility()">???</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Select Your Desired Society:</label>
+                    <select id="society" required>
+                        <option value="">Select Secret Society Organization</option>
+                        <option value="illuminati">The Illuminati Order ($418)</option>
+                        <option value="brotherhood">The Brotherhood ($250)</option>
+                        <option value="freemason">Freemason Elite ($167)</option>
+                        <option value="political">Political Power ($640)</option>
+                        <option value="shankiki">The Shankiki Circle (<span id="shankiki-price">Select Tier</span>)</option>
+                    </select>
+                </div>
+                
+                <!-- Reasons to Join Section -->
+                <div class="form-group reasons-to-join">
+                    <label>State 3 Reasons Why You Want to Join (Required):</label>
+                    <textarea id="reasons" required></textarea>
+                </div>
+                
+                <!-- Photo and Video Verification -->
+                <div class="verification-box">
+                    <h3>FACIAL RECOGNITION VERIFICATION</h3>
+                    
+                    <div class="verification-steps">
+                        <div class="step" id="step1">Upload 3 photos of yourself from different angles</div>
+                        <div class="step" id="step2">Upload a short video of yourself</div>
+                        <div class="step" id="step3">Verify face match</div>
+                    </div>
+                    
+                    <div class="photo-upload-container">
+                        <div class="photo-upload-box" id="photo-upload-1">
+                            <p>Photo 1</p>
+                            <input type="file" class="photo-upload" accept="image/*" style="display: none;" data-index="1">
+                        </div>
+                        <div class="photo-upload-box" id="photo-upload-2">
+                            <p>Photo 2</p>
+                            <input type="file" class="photo-upload" accept="image/*" style="display: none;" data-index="2">
+                        </div>
+                        <div class="photo-upload-box" id="photo-upload-3">
+                            <p>Photo 3</p>
+                            <input type="file" class="photo-upload" accept="image/*" style="display: none;" data-index="3">
+                        </div>
+                    </div>
+                    
+                    <div class="video-upload-box" id="video-upload-box">
+                        <p>Upload video (minimum 2 seconds)</p>
+                        <input type="file" id="video-upload" accept="video/*" style="display: none;">
+                    </div>
+                    
+                    <div class="face-match-result" id="face-match-result"></div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button type="button" class="btn-small" id="verify-faces-btn" enabled>VERIFY FACE MATCH</button>
+                    </div>
+                </div>
+                
+                <!-- Fingerprint Verification -->
+                <div class="verification-box">
+                    <h3>BIOMETRIC SIGNATURE</h3>
+                    <p>Press and hold your finger on the scanner for 20 seconds</p>
+                    
+                    <div class="fingerprint-scanner" id="fingerprint-scanner">
+                        <div class="fingerprint-lines"></div>
+                        <div class="fingerprint-success">?</div>
+                        <p>PRESS TO START SCAN</p>
+                    </div>
+                    
+                    <div class="fingerprint-progress">
+                        <div class="fingerprint-progress-bar" id="fingerprint-progress-bar"></div>
+                    </div>
+                    
+                    <p id="fingerprint-status" style="text-align: center;">Press and hold your finger to begin scanning</p>
+                    <p id="fingerprint-time" style="text-align: center;">Time remaining: 20 seconds</p>
+                    
+                    <div class="fingerprint-details" id="fingerprint-details"></div>
+                </div>
+                
+                <!-- Voice Oath -->
+                <div class="verification-box">
+                    <h3>VOICE OATH RECORDING</h3>
+                    <p>You must record at least 2 minutes of the sacred oath (maximum 5 minutes)</p>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <div id="recording-status">
+                            <span class="recording-indicator"></span>
+                            <span id="recording-text">Ready to record</span>
+                        </div>
+                        
+                        <div id="recording-timer" style="font-size: 1.5em; margin: 10px 0;">00:00:00</div>
+                        
+                        <button type="button" class="btn-small" onclick="startRecording()">BEGIN RECORDING</button>
+                        <button type="button" class="btn-small" onclick="stopRecording()">STOP RECORDING</button>
+                    </div>
+                    
+                    <p>Recite the following oath clearly:</p>
+                    <p><em>"I, [your name], solemnly swear to uphold the ancient secrets of the order, to never reveal its mysteries to the uninitiated, and to serve its purposes with unwavering loyalty. Should I break this oath, may the full wrath of the council be upon me and my bloodline."</em></p>
+                </div>
+                
+                <!-- Terms and Submit -->
+                <div class="form-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I understand this is a binding oath and my biometric data will be stored permanently in the archives</label>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button type="button" class="btn" onclick="submitApplication()">SUBMIT INITIATION REQUEST</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Processing Screen -->
+        <div id="processing-screen" class="hidden-section" style="text-align: center;">
+            <div class="eye-symbol" style="width: 120px; height: 120px; margin: 40px auto;"></div>
+            <h2>PROCESSING YOUR INITIATION</h2>
+            <p id="processing-text">Verifying biometric data with the Grand Council...</p>
+            <div id="processing-progress" style="width: 100%; background: #111; height: 20px; margin: 20px 0; border: 1px solid #333;">
+                <div id="progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #600, #c0a062); transition: width 0.5s;"></div>
+            </div>
+        </div>
+
+        <!-- Approval Screen -->
+        <div id="approval-screen" class="hidden-section" style="text-align: center;">
+            <div class="eye-symbol" style="width: 150px; height: 150px; margin: 40px auto;"></div>
+            <h2>INITIATION APPROVED</h2>
+            <p>Welcome, <span id="approved-name" style="font-weight: bold;"></span></p>
+            <p>You have been accepted into <span id="approved-society" style="font-weight: bold;"></span></p>
+            <p>Your mentor will contact you within 2 minitues cycles</p>
+            <p>Your initiation number: <span id="initiation-number" style="font-weight: bold; font-size: 1.2em;"></span></p>
+            
+            <div style="margin: 30px 0;">
+                <button class="btn" onclick="showCertificate()">VIEW CERTIFICATE</button>
+                <button class="btn" onclick="showMentorDashboard()">MENTOR DASHBOARD</button>
+                <button class="btn" onclick="showSecretWiki()">SECRET WIKI</button>
+            </div>
+        </div>
+
+        <!-- Certificate -->
+        <div id="certificate">
+            <h1>CERTIFICATE OF INITIATION</h1>
+            <p>This is to certify that</p>
+            <h2 id="cert-name"></h2>
+            <p>has been duly initiated into the</p>
+            <h3 id="cert-society"></h3>
+            <p>on this <span id="cert-date"></span></p>
+            
+            <div class="seal"></div>
+            
+            <p>Initiation Number: <strong id="cert-number"></strong></p>
+            <p>Mentor ID: <strong id="cert-mentor"></strong></p>
+            
+            <div style="display: flex; justify-content: space-around; margin-top: 50px;">
+                <div style="width: 200px; border-top: 1px solid #000; padding-top: 5px;">
+                    <p>Grand Master</p>
+                </div>
+                <div style="width: 200px; border-top: 1px solid #000; padding-top: 5px;">
+                    <p>Seal of the Order</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <button class="btn" onclick="printCertificate()" style="background: #000; color: #c0a062;">PRINT CERTIFICATE</button>
+                <button class="btn" onclick="hideCertificate()" style="background: #600; color: #fff;">RETURN TO PORTAL</button>
+            </div>
+        </div>
+
+        <!-- Mentor Dashboard -->
+        <div id="mentor-dashboard" class="hidden-section">
+            <h2>MENTOR DASHBOARD: <span style="color:#f0d090;">INIT-777-AA</span></h2>
+            <div class="eye-symbol" style="margin: 20px auto;"></div>
+            
+            <div class="mentor-stats">
+                <div>
+                    <p>YOUR RANK: <span style="color:#f0d090;">Alpha-Alpha Mentor</span></p>
+                </div>
+                <div>
+                    <p>RECRUITS THIS CYCLE: <span style="color:#f0d090;">13</span></p>
+                </div>
+                <div>
+                    <p>NEXT PROMOTION: <span style="color:#f0d090;">7 more recruits</span></p>
+                </div>
+            </div>
+            
+            <h3>YOUR RECRUITS</h3>
+            <ul id="recruit-list">
+                <li>Neophyte #45 - Status: <em>Oath Pending</em></li>
+                <li>Neophyte #72 - Status: <em>Biometrics Verified</em></li>
+                <li>Neophyte #88 - Status: <em>Council Review</em></li>
+            </ul>
+            
+            <div style="text-align: center;">
+                <button class="btn" onclick="generateRecruit()">SIMULATE NEW RECRUIT</button>
+                <button class="btn" onclick="sendMentorMessage()">SEND COUNCIL MESSAGE</button>
+            </div>
+            
+            <div id="mentor-message" style="margin-top: 30px; display: none;">
+                <h3>COUNCIL RESPONSE</h3>
+                <p>"Your dedication is noted, Mentor INIT-777-AA. The pyramid grows stronger."</p>
+            </div>
+        </div>
+
+        <!-- Secret Wiki -->
+        <div id="secret-wiki" class="hidden-section">
+            <h2>SECRET WIKI</h2>
+            <p>Restricted knowledge for initiates only</p>
+            
+            <div class="wiki-section">
+                <h3>THE SEVEN SACRED SYMBOLS</h3>
+                <p>1. The All-Seeing Eye - Represents cosmic awareness</p>
+                <p>2. The Unfinished Pyramid - Symbol of human potential</p>
+                <p>3. The Owl of Minerva - Wisdom in darkness</p>
+                <p>4. The Caduceus - Balance of opposing forces</p>
+                <p>5. The Ouroboros - Eternal cyclicality</p>
+                <p>6. The Black Sun - Hidden illumination</p>
+                <p>7. The Triple Goddess - Maiden, Mother, Crone</p>
+            </div>
+            
+            <div class="wiki-section">
+                <h3>INITIATION RITUALS</h3>
+                <p>1. <strong>Moon Phase Alignment:</strong> All major decisions must align with lunar cycles</p>
+                <p>2. <strong>The Blood Oath:</strong> Binding agreement under pain of exile</p>
+                <p>3. <strong>Symbolic Death:</strong> Shedding of former identity</p>
+                <p>4. <strong>Elemental Trials:</strong> Tests of earth, air, fire, and water</p>
+            </div>
+            
+            <div class="wiki-section">
+                <h3>COMMUNICATION PROTOCOLS</h3>
+                <p>1. <strong>Dead Drops:</strong> Use public libraries, book #333 in occult section</p>
+                <p>2. <strong>Encrypted Emails:</strong> Subject line must include "AA" for Alpha-Alpha</p>
+                <p>3. <strong>Emergency Signal:</strong> Three black candles in window</p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn" onclick="showApprovalScreen()">RETURN TO PORTAL</button>
+                <button class="btn" onclick="generateSecretTask()">GENERATE SECRET TASK</button>
+            </div>
+            
+            <div id="secret-task" style="margin-top: 20px; display: none;">
+                <h3>YOUR NEXT TASK</h3>
+                <p id="task-text"></p>
+                <p>Complete within 30 minutes and report to your mentor.</p>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <p>This is the real society website or experieces true secret society's registration. The Sovereign Gate is affiliated with all real organizations. No any un actual memberships or services being offered. All content is purely for an important purposes. The registration data is collected or stored by this webpage.</p>
+        </div>
+    </div>
+
+    <div class="legal-notice">
+        NOTICE: This is the real society website or experieces true secret society's registration. All things are secret in the secret societies and exists at this domain.
+        All memberships are real and exists. Make sure your serious and willing to join the organization.
+        The severeign gate. Associates with Freemasons, Brotherhood, Illuminati, and other organizations.
+        The registration data is actually collected by this webpage.
+    </div>
+
+    <script>
+        // === INITIALIZATION ===
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add floating symbols dynamically
+            const floatingContainer = document.querySelector('.floating-symbols');
+            const symbols = ['?', '?', '?', '?', '?', '?', '?'];
+            
+            for (let i = 0; i < 15; i++) {
+                const symbol = document.createElement('div');
+                symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                symbol.style.top = Math.random() * 100 + '%';
+                symbol.style.left = Math.random() * 100 + '%';
+                symbol.style.animationDuration = (10 + Math.random() * 20) + 's';
+                symbol.style.animationDelay = Math.random() * 5 + 's';
+                floatingContainer.appendChild(symbol);
+            }
+
+            // Setup photo uploads
+            document.querySelectorAll('.photo-upload-box').forEach(box => {
+                box.addEventListener('click', function() {
+                    const index = this.querySelector('input').getAttribute('data-index');
+                    document.querySelector(`.photo-upload[data-index="${index}"]`).click();
+                });
+            });
+
+            document.querySelectorAll('.photo-upload').forEach(input => {
+                input.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const index = e.target.getAttribute('data-index');
+                        const box = document.getElementById(`photo-upload-${index}`);
+                        box.innerHTML = `<img src="${event.target.result}" style="max-width:100%;max-height:100%;">`;
+                        
+                        // Check if all photos are uploaded
+                        checkPhotosUploaded();
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            // Setup video upload
+            document.getElementById('video-upload-box').addEventListener('click', function() {
+                document.getElementById('video-upload').click();
+            });
+
+            document.getElementById('video-upload').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                if (!file.type.includes('video')) {
+                    alert('Please upload a video file');
+                    return;
+                }
+                
+                const videoBox = document.getElementById('video-upload-box');
+                const video = document.createElement('video');
+                video.src = URL.createObjectURL(file);
+                video.controls = true;
+                videoBox.innerHTML = '';
+                videoBox.appendChild(video);
+                
+                // Check video duration
+                video.onloadedmetadata = function() {
+                    if (video.duration < 2) {
+                        alert('Video must be at least 2 seconds long');
+                        videoBox.innerHTML = '<p>Upload video (minimum 2 seconds)</p>';
+                        return;
+                    }
+                    
+                    document.getElementById('step2').classList.add('completed');
+                    checkPhotosUploaded();
+                };
+            });
+
+            // Setup fingerprint scanner for touch devices
+            const fingerprintScanner = document.getElementById('fingerprint-scanner');
+            
+            // Touch events for mobile devices
+            fingerprintScanner.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                if (fingerprintVerified) return;
+                
+                isScanning = true;
+                scanProgress = 0;
+                document.querySelector('.fingerprint-lines').style.display = 'block';
+                this.querySelector('p').textContent = 'SCANNING...';
+                document.getElementById('fingerprint-status').textContent = 'Scanning fingerprint...';
+                document.getElementById('fingerprint-details').style.display = 'block';
+                
+                // Start scan progress
+                scanInterval = setInterval(function() {
+                    scanProgress += 5;
+                    document.getElementById('fingerprint-progress-bar').style.width = scanProgress + '%';
+                    
+                    // Update time remaining
+                    const timeRemaining = 20 - Math.floor(scanProgress / 5);
+                    document.getElementById('fingerprint-time').textContent = `Time remaining: ${timeRemaining} seconds`;
+                    
+                    // Random scanning details
+                    const details = [
+                        `Detected ${Math.floor(scanProgress/2)} ridge characteristics`,
+                        `Analyzing ${Math.floor(scanProgress/3)} minutiae points`,
+                        `Mapping ${Math.floor(scanProgress/4)} unique patterns`
+                    ];
+                    document.getElementById('fingerprint-details').innerHTML = 
+                        details.map(d => `<p>${d}</p>`).join('');
+                    
+                    if (scanProgress >= 100) {
+                        completeFingerprintScan();
+                    }
+                }, 1000);
+            });
+            
+            fingerprintScanner.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                if (!fingerprintVerified && isScanning) {
+                    clearInterval(scanInterval);
+                    document.getElementById('fingerprint-status').textContent = 'Scan interrupted. Please try again.';
+                    document.getElementById('fingerprint-time').textContent = 'Press and hold for full 20 seconds';
+                    document.querySelector('.fingerprint-lines').style.display = 'none';
+                    document.getElementById('fingerprint-scanner').querySelector('p').textContent = 'PRESS TO START SCAN';
+                    document.getElementById('fingerprint-progress-bar').style.width = '0%';
+                    document.getElementById('fingerprint-details').style.display = 'none';
+                    isScanning = false;
+                }
+            });
+            
+            // Mouse events for desktop
+            fingerprintScanner.addEventListener('mousedown', function(e) {
+                if (fingerprintVerified) return;
+                
+                isScanning = true;
+                scanProgress = 0;
+                document.querySelector('.fingerprint-lines').style.display = 'block';
+                this.querySelector('p').textContent = 'SCANNING...';
+                document.getElementById('fingerprint-status').textContent = 'Scanning fingerprint...';
+                document.getElementById('fingerprint-details').style.display = 'block';
+                
+                // Start scan progress
+                scanInterval = setInterval(function() {
+                    scanProgress += 5;
+                    document.getElementById('fingerprint-progress-bar').style.width = scanProgress + '%';
+                    
+                    // Update time remaining
+                    const timeRemaining = 20 - Math.floor(scanProgress / 5);
+                    document.getElementById('fingerprint-time').textContent = `Time remaining: ${timeRemaining} seconds`;
+                    
+                    // Random scanning details
+                    const details = [
+                        `Detected ${Math.floor(scanProgress/2)} ridge characteristics`,
+                        `Analyzing ${Math.floor(scanProgress/3)} minutiae points`,
+                        `Mapping ${Math.floor(scanProgress/4)} unique patterns`
+                    ];
+                    document.getElementById('fingerprint-details').innerHTML = 
+                        details.map(d => `<p>${d}</p>`).join('');
+                    
+                    if (scanProgress >= 100) {
+                        completeFingerprintScan();
+                    }
+                }, 1000);
+            });
+            
+            fingerprintScanner.addEventListener('mouseup', function(e) {
+                if (!fingerprintVerified && isScanning) {
+                    clearInterval(scanInterval);
+                    document.getElementById('fingerprint-status').textContent = 'Scan interrupted. Please try again.';
+                    document.getElementById('fingerprint-time').textContent = 'Press and hold for full 20 seconds';
+                    document.querySelector('.fingerprint-lines').style.display = 'none';
+                    document.getElementById('fingerprint-scanner').querySelector('p').textContent = 'PRESS TO START SCAN';
+                    document.getElementById('fingerprint-progress-bar').style.width = '0%';
+                    document.getElementById('fingerprint-details').style.display = 'none';
+                    isScanning = false;
+                }
+            });
+            
+            // Prevent context menu on long press
+            fingerprintScanner.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+        });
+
+        // === GLOBAL VARIABLES ===
+        let isRecording = false;
+        let recordStartTime;
+        let recordingInterval;
+        let fingerprintVerified = false;
+        let photoVerified = false;
+        let selectedMembership = '';
+        let selectedShankikiTier = 0;
+        let isScanning = false;
+        let scanProgress = 0;
+        let scanInterval;
+
+        // === SECTION MANAGEMENT ===
+        function showSection(sectionId) {
+            document.querySelectorAll('.hidden-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            if (sectionId === 'welcome-screen') {
+                document.getElementById('welcome-screen').style.display = 'block';
+            } else {
+                document.getElementById(sectionId).style.display = 'block';
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        function selectMembership(type) {
+            selectedMembership = type;
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.style.backgroundColor = '';
+            });
+            event.currentTarget.style.backgroundColor = 'rgba(192, 160, 98, 0.2)';
+            
+            // If selecting Shankiki, make sure a tier is selected
+            if (type === 'shankiki' && selectedShankikiTier === 0) {
+                alert('Please select a price tier for the Shankiki Circle');
+                return false;
+            }
+            return true;
+        }
+
+        function selectShankikiTier(price, event) {
+            // Prevent the option click from triggering
+            event.stopPropagation();
+            
+            // Remove selected class from all tiers
+            document.querySelectorAll('.price-tier').forEach(tier => {
+                tier.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked tier
+            event.target.classList.add('selected');
+            
+            // Store the selected price
+            selectedShankikiTier = price;
+            
+            // Update the form dropdown
+            document.getElementById('shankiki-price').textContent = '$' + price;
+            
+            // Select the Shankiki option
+            selectMembership('shankiki');
+        }
+
+        // === ENHANCED FACE VERIFICATION ===
+        function checkPhotosUploaded() {
+            const photoInputs = document.querySelectorAll('.photo-upload');
+            let allPhotosUploaded = true;
+            
+            photoInputs.forEach(input => {
+                if (!input.files || input.files.length === 0) {
+                    allPhotosUploaded = false;
+                }
+            });
+            
+            const videoUploaded = document.getElementById('video-upload').files.length > 0;
+            
+            if (allPhotosUploaded && videoUploaded) {
+                document.getElementById('verify-faces-btn').disabled = false;
+            }
+        }
+
+        document.getElementById('verify-faces-btn').addEventListener('click', function() {
+            const faceMatchResult = document.getElementById('face-match-result');
+            faceMatchResult.style.display = 'block';
+            faceMatchResult.textContent = "Analyzing facial features...";
+            
+            // Get all uploaded images and video
+            const photo1 = document.querySelector('#photo-upload-1 img');
+            const photo2 = document.querySelector('#photo-upload-2 img');
+            const photo3 = document.querySelector('#photo-upload-3 img');
+            const video = document.querySelector('#video-upload-box video');
+            
+            if (!photo1 || !photo2 || !photo3 || !video) {
+                faceMatchResult.className = "face-match-result match-failure";
+                faceMatchResult.innerHTML = "? VERIFICATION FAILED<br>Please upload all required media";
+                photoVerified = false;
+                return;
+            }
+            
+            // Simulate face matching analysis with more detailed feedback
+            setTimeout(() => {
+                // Check if all photos show the same person (in a real app, this would use facial recognition)
+                const photosSamePerson = Math.random() < 0.9; // 90% chance photos match
+                
+                // Check if video matches photos (in a real app, compare video frames to photos)
+                const videoMatchesPhotos = Math.random() < 0.8; // 80% chance video matches
+                
+                if (photosSamePerson && videoMatchesPhotos) {
+                    faceMatchResult.className = "face-match-result match-success";
+                    faceMatchResult.innerHTML = "? VERIFICATION SUCCESS<br>Biometric match confirmed";
+                    photoVerified = true;
+                    document.getElementById('step3').classList.add('completed');
+                } else {
+                    faceMatchResult.className = "face-match-result match-failure";
+                    let errorMessage = "? VERIFICATION FAILED<br>";
+                    
+                    if (!photosSamePerson && !videoMatchesPhotos) {
+                        errorMessage += "Photos show different people and don't match the video";
+                    } else if (!photosSamePerson) {
+                        errorMessage += "Photos show different people";
+                    } else {
+                        errorMessage += "Video doesn't match the photos";
+                    }
+                    
+                    errorMessage += "<br>Please upload consistent media of the same person";
+                    faceMatchResult.innerHTML = errorMessage;
+                    photoVerified = false;
+                }
+            }, 3000);
+        });
+
+        function completeFingerprintScan() {
+            clearInterval(scanInterval);
+            fingerprintVerified = true;
+            document.getElementById('fingerprint-status').textContent = 'Fingerprint verified ?';
+            document.getElementById('fingerprint-time').textContent = 'Biometric signature captured';
+            document.querySelector('.fingerprint-lines').style.display = 'none';
+            document.getElementById('fingerprint-scanner').querySelector('p').style.display = 'none';
+            document.querySelector('.fingerprint-success').style.display = 'flex';
+            document.getElementById('fingerprint-details').innerHTML = 
+                '<p>Fingerprint successfully registered</p>' +
+                '<p>Unique ID: FP-' + Math.floor(100000 + Math.random() * 900000) + '</p>';
+        }
+
+        // === VOICE RECORDING ===
+        function startRecording() {
+            if (isRecording) return;
+            
+            isRecording = true;
+            document.getElementById('recording-status').classList.add('recording');
+            document.getElementById('recording-text').textContent = 'Recording in progress';
+            
+            recordStartTime = new Date();
+            let seconds = 0;
+            
+            recordingInterval = setInterval(function() {
+                seconds++;
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const secs = seconds % 60;
+                
+                document.getElementById('recording-timer').textContent = 
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                
+                // Auto-stop at 5 minutes
+                if (seconds >= 300) {
+                    stopRecording();
+                }
+            }, 1000);
+        }
+
+        function stopRecording() {
+            if (!isRecording) return;
+            
+            clearInterval(recordingInterval);
+            isRecording = false;
+            document.getElementById('recording-status').classList.remove('recording');
+            
+            const elapsed = Math.floor((new Date() - recordStartTime) / 1000);
+            if (elapsed < 120) { // 2 minutes = 120 seconds
+                document.getElementById('recording-text').textContent = `Recording too short (${Math.floor(elapsed/60)} minutes) - need at least 2 minutes`;
+            } else {
+                document.getElementById('recording-text').textContent = `Oath recorded (${Math.floor(elapsed/60)} minutes)`;
+            }
+        }
+
+        // === PASSWORD VISIBILITY TOGGLE ===
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+
+        function toggleConfirmPasswordVisibility() {
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            if (confirmPasswordInput.type === 'password') {
+                confirmPasswordInput.type = 'text';
+            } else {
+                confirmPasswordInput.type = 'password';
+            }
+        }
+
+        // === APPLICATION SUBMISSION ===
+        function submitApplication() {
+            // Validate all fields
+            const requiredFields = ['full-name', 'username', 'email', 'age', 'sex', 'country', 
+                                  'phone', 'occupation', 'location', 'mentor-id', 'password', 
+                                  'confirm-password', 'society', 'reasons'];
+            
+            for (const fieldId of requiredFields) {
+                if (!document.getElementById(fieldId).value) {
+                    alert(`Please complete all required fields (missing ${fieldId.replace('-', ' ')})`);
+                    return;
+                }
+            }
+            
+            // Validate mentor ID format
+            const mentorId = document.getElementById('mentor-id').value;
+            if (!mentorId.match(/^INIT-\d{3}-[A-Z]{2}$/)) {
+                alert('Mentor ID must be in format INIT-777-AA (3 digits, 2 uppercase letters)');
+                return;
+            }
+            
+            // Validate password match
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // Validate email format
+            const email = document.getElementById('email').value;
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // Validate reasons to join
+            const reasons = document.getElementById('reasons').value;
+            if (!reasons || reasons.split('\n').filter(r => r.trim().length > 0).length < 3) {
+                alert('Please provide at least 3 reasons for wanting to join');
+                return;
+            }
+            
+            // Special validation for Shankiki Circle
+            const society = document.getElementById('society').value;
+            if (society === 'shankiki' && selectedShankikiTier === 0) {
+                alert('Please select a price tier for the Shankiki Circle');
+                return;
+            }
+            
+            if (!document.getElementById('terms').checked) {
+                alert('You must accept the terms');
+                return;
+            }
+            
+            if (!photoVerified) {
+                alert('Please complete photo verification');
+                return;
+            }
+            
+            if (!fingerprintVerified) {
+                alert('Please complete fingerprint verification');
+                return;
+            }
+            
+            const recordingText = document.getElementById('recording-text').textContent;
+            if (recordingText.includes('too short') || recordingText === 'Ready to record') {
+                alert('Please complete the voice oath recording (minimum 2 minutes)');
+                return;
+            }
+            
+            // Show processing screen
+            showSection('processing-screen');
+            
+            // Simulate processing
+            let progress = 0;
+            const progressInterval = setInterval(function() {
+                progress += Math.random() * 10;
+                if (progress > 100) progress = 100;
+                document.getElementById('progress-bar').style.width = progress + '%';
+                
+                const steps = [
+                    "Verifying biometric data...",
+                    "Cross-referencing with global databases...",
+                    "Consulting the Grand Council...",
+                    "Decrypting initiation protocols...",
+                    "Finalizing your membership..."
+                ];
+                
+                document.getElementById('processing-text').textContent = 
+                    steps[Math.min(Math.floor(progress / 20), steps.length - 1)];
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(showApprovalScreen, 1500);
+                }
+            }, 500);
+        }
+
+        function showApprovalScreen() {
+            document.getElementById('processing-screen').style.display = 'none';
+            
+            const name = document.getElementById('full-name').value;
+            const society = document.getElementById('society').options[document.getElementById('society').selectedIndex].text;
+            const mentorId = document.getElementById('mentor-id').value;
+            
+            document.getElementById('approved-name').textContent = name;
+            document.getElementById('approved-society').textContent = society;
+            
+            // Generate fake initiation number
+            const initNumber = 'INIT-' + Math.floor(1000 + Math.random() * 9000) + '-' + 
+                              String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
+                              String.fromCharCode(65 + Math.floor(Math.random() * 26));
+            document.getElementById('initiation-number').textContent = initNumber;
+            
+            // Set certificate data
+            document.getElementById('cert-name').textContent = name;
+            document.getElementById('cert-society').textContent = society;
+            document.getElementById('cert-date').textContent = new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            document.getElementById('cert-number').textContent = initNumber;
+            document.getElementById('cert-mentor').textContent = mentorId;
+            
+            showSection('approval-screen');
+        }
+
+        // === CERTIFICATE FUNCTIONS ===
+        function showCertificate() {
+            document.getElementById('approval-screen').style.display = 'none';
+            document.getElementById('certificate').style.display = 'block';
+        }
+
+        function hideCertificate() {
+            document.getElementById('certificate').style.display = 'none';
+            document.getElementById('approval-screen').style.display = 'block';
+        }
+
+        function printCertificate() {
+            const printContent = document.getElementById('certificate').outerHTML;
+            const win = window.open('', '', 'width=800,height=600');
+            win.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Initiation Certificate</title>
+                    <style>
+                        body { font-family: 'Old English Text MT', serif; padding: 50px; }
+                        h1 { font-size: 36px; color: #600; text-align: center; }
+                        h2 { font-size: 28px; text-align: center; text-decoration: underline; }
+                        h3 { font-size: 24px; text-align: center; }
+                        .seal { width: 150px; height: 150px; margin: 30px auto; }
+                    </style>
+                </head>
+                <body>
+                    ${printContent}
+                </body>
+                </html>
+            `);
+            win.document.close();
+            win.focus();
+            setTimeout(function() { win.print(); }, 500);
+        }
+
+        // === MENTOR DASHBOARD FUNCTIONS ===
+        function showMentorDashboard() {
+            document.getElementById('approval-screen').style.display = 'none';
+            document.getElementById('mentor-dashboard').style.display = 'block';
+        }
+
+        function generateRecruit() {
+            const recruitNumber = Math.floor(Math.random() * 100) + 100;
+            const statuses = ["Oath Pending", "Biometrics Verified", "Council Review", "Approved"];
+            const status = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            const recruitItem = document.createElement("li");
+            recruitItem.innerHTML = `Neophyte #${recruitNumber} - Status: <em>${status}</em>`;
+            document.getElementById("recruit-list").appendChild(recruitItem);
+        }
+
+        function sendMentorMessage() {
+            document.getElementById('mentor-message').style.display = 'block';
+            setTimeout(function() {
+                document.getElementById('mentor-message').innerHTML = `
+                    <h3>COUNCIL RESPONSE</h3>
+                    <p>"Your dedication is noted, Mentor INIT-777-AA. The pyramid grows stronger."</p>
+                    <p>New recruits will be assigned to you shortly.</p>
+                `;
+            }, 1500);
+        }
+
+        // === SECRET WIKI FUNCTIONS ===
+        function showSecretWiki() {
+            document.getElementById('approval-screen').style.display = 'none';
+            document.getElementById('secret-wiki').style.display = 'block';
+        }
+
+        function generateSecretTask() {
+            const tasks = [
+                "Acquire a first edition of the Necronomicon from your local rare books dealer",
+                "Identify three potential recruits in positions of media influence",
+                "Memorize the sacred geometry of your city's central monument",
+                "Establish a dead drop location in a public park",
+                "Study the lunar calendar and identify the next auspicious date",
+                "Create a symbolic artwork incorporating all seven sacred symbols"
+            ];
+            
+            const task = tasks[Math.floor(Math.random() * tasks.length)];
+            document.getElementById('task-text').textContent = task;
+            document.getElementById('secret-task').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
